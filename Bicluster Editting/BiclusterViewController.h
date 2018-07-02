@@ -12,5 +12,6 @@
 
 @property NSString *numberOfLeftNodes;
 @property NSString *numberOfRightNodes;
+@property NSString *probability;
 
 @end

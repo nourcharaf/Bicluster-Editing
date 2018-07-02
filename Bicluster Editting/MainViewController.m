@@ -17,6 +17,7 @@
 @implementation MainViewController{
     UITextField *leftNodesTextField;
     UITextField *rightNodesTextField;
+    UITextField *probabilityTextField;
 }
 
 - (void)viewDidLoad {
@@ -38,6 +39,7 @@
     BiclusterViewController *biclusterViewController = [utilities mainStoryboardInstantiateViewControllerWithIdentifier:@"BiclusterViewController"];
     biclusterViewController.numberOfLeftNodes = leftNodesTextField.text;
     biclusterViewController.numberOfRightNodes = rightNodesTextField.text;
+    biclusterViewController.probability = probabilityTextField.text;
     [self.navigationController pushViewController:biclusterViewController animated:YES];
 }
 -(void)doneBarButton:(UIBarButtonItem *)sender{
@@ -85,6 +87,20 @@
     [rightNodesTextField setPlaceholder:@"# of Right Nodes"];
     [rightNodesTextField setInputAccessoryView:toolBar];
     [rightNodesTextField setKeyboardType:UIKeyboardTypeNumberPad];
+    
+    // Probability TextField
+    probabilityTextField = [[UITextField alloc]init];
+    [probabilityTextField setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [self.view addSubview:probabilityTextField];
+    
+    NSLayoutConstraint *probabilityTextFieldTopConstraint = [NSLayoutConstraint constraintWithItem:probabilityTextField attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:rightNodesTextField attribute:NSLayoutAttributeBottom multiplier:1 constant:8];
+    NSLayoutConstraint *probabilityTextFieldLeadingConstraint = [NSLayoutConstraint constraintWithItem:probabilityTextField attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeLeading multiplier:1 constant:8];
+    NSLayoutConstraint *probabilityTextFieldTrailing = [NSLayoutConstraint constraintWithItem:probabilityTextField attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeTrailing multiplier:1 constant:-8];
+    [self.view addConstraints:@[probabilityTextFieldTopConstraint,probabilityTextFieldLeadingConstraint,probabilityTextFieldTrailing]];
+    
+    [probabilityTextField setPlaceholder:@"Probability"];
+    [probabilityTextField setInputAccessoryView:toolBar];
+    [probabilityTextField setKeyboardType:UIKeyboardTypeNumbersAndPunctuation];
     
     // Generate Button
     UIButton *generateButton = [[UIButton alloc]init];

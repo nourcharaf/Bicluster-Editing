@@ -56,7 +56,7 @@
         Node *leftNode = leftNodes[i];
         for (int j = 0;j<rightNodes.count;j++){
             Node *rightNode = rightNodes[j];
-            if ([utilities randomNumber] >= 0.5){
+            if ([utilities randomNumber] <= [_probability floatValue]){
                 [leftNode.nodeNeighbors addObject:rightNode];
                 [rightNode.nodeNeighbors addObject:leftNode];
             }
