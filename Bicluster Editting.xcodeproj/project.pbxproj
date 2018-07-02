@@ -8,24 +8,36 @@
 
 /* Begin PBXBuildFile section */
 		0206E4BB20EA02FC008C110D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0206E4BA20EA02FC008C110D /* AppDelegate.m */; };
-		0206E4BE20EA02FC008C110D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0206E4BD20EA02FC008C110D /* ViewController.m */; };
 		0206E4C120EA02FC008C110D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0206E4BF20EA02FC008C110D /* Main.storyboard */; };
 		0206E4C320EA02FE008C110D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0206E4C220EA02FE008C110D /* Assets.xcassets */; };
 		0206E4C620EA02FE008C110D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0206E4C420EA02FE008C110D /* LaunchScreen.storyboard */; };
 		0206E4C920EA02FE008C110D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0206E4C820EA02FE008C110D /* main.m */; };
+		0206E4D120EA0358008C110D /* Node.m in Sources */ = {isa = PBXBuildFile; fileRef = 0206E4D020EA0358008C110D /* Node.m */; };
+		0206E4D820EA03B1008C110D /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0206E4D720EA03B1008C110D /* MainViewController.m */; };
+		02FE24AB20EA04CB00FA179D /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 02FE24AA20EA04CB00FA179D /* Utilities.m */; };
+		02FE24AF20EA056C00FA179D /* BiclusterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02FE24AE20EA056C00FA179D /* BiclusterViewController.m */; };
+		02FE24B320EA0C1700FA179D /* NodeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 02FE24B220EA0C1700FA179D /* NodeView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0206E4B620EA02FC008C110D /* Bicluster Editting.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Bicluster Editting.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0206E4B920EA02FC008C110D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		0206E4BA20EA02FC008C110D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		0206E4BC20EA02FC008C110D /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		0206E4BD20EA02FC008C110D /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		0206E4C020EA02FC008C110D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0206E4C220EA02FE008C110D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0206E4C520EA02FE008C110D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0206E4C720EA02FE008C110D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0206E4C820EA02FE008C110D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		0206E4CF20EA0358008C110D /* Node.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Node.h; sourceTree = "<group>"; };
+		0206E4D020EA0358008C110D /* Node.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Node.m; sourceTree = "<group>"; };
+		0206E4D620EA03B1008C110D /* MainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		0206E4D720EA03B1008C110D /* MainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
+		02FE24A920EA04CB00FA179D /* Utilities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
+		02FE24AA20EA04CB00FA179D /* Utilities.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Utilities.m; sourceTree = "<group>"; };
+		02FE24AD20EA056C00FA179D /* BiclusterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BiclusterViewController.h; sourceTree = "<group>"; };
+		02FE24AE20EA056C00FA179D /* BiclusterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BiclusterViewController.m; sourceTree = "<group>"; };
+		02FE24B120EA0C1700FA179D /* NodeView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NodeView.h; sourceTree = "<group>"; };
+		02FE24B220EA0C1700FA179D /* NodeView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NodeView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,8 +72,9 @@
 			children = (
 				0206E4B920EA02FC008C110D /* AppDelegate.h */,
 				0206E4BA20EA02FC008C110D /* AppDelegate.m */,
-				0206E4BC20EA02FC008C110D /* ViewController.h */,
-				0206E4BD20EA02FC008C110D /* ViewController.m */,
+				02FE24AC20EA04D400FA179D /* Utilities */,
+				02FE24A520EA044C00FA179D /* NSObjects */,
+				02FE24A720EA045F00FA179D /* ViewControllers */,
 				0206E4BF20EA02FC008C110D /* Main.storyboard */,
 				0206E4C220EA02FE008C110D /* Assets.xcassets */,
 				0206E4C420EA02FE008C110D /* LaunchScreen.storyboard */,
@@ -69,6 +82,69 @@
 				0206E4C820EA02FE008C110D /* main.m */,
 			);
 			path = "Bicluster Editting";
+			sourceTree = "<group>";
+		};
+		02FE24A520EA044C00FA179D /* NSObjects */ = {
+			isa = PBXGroup;
+			children = (
+				02FE24A620EA045800FA179D /* Node */,
+			);
+			name = NSObjects;
+			sourceTree = "<group>";
+		};
+		02FE24A620EA045800FA179D /* Node */ = {
+			isa = PBXGroup;
+			children = (
+				0206E4CF20EA0358008C110D /* Node.h */,
+				0206E4D020EA0358008C110D /* Node.m */,
+			);
+			name = Node;
+			sourceTree = "<group>";
+		};
+		02FE24A720EA045F00FA179D /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				02FE24A820EA046600FA179D /* MainViewController */,
+				02FE24B020EA056F00FA179D /* BiclusterViewController */,
+				02FE24B420EA0C3200FA179D /* Views */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		02FE24A820EA046600FA179D /* MainViewController */ = {
+			isa = PBXGroup;
+			children = (
+				0206E4D620EA03B1008C110D /* MainViewController.h */,
+				0206E4D720EA03B1008C110D /* MainViewController.m */,
+			);
+			name = MainViewController;
+			sourceTree = "<group>";
+		};
+		02FE24AC20EA04D400FA179D /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				02FE24A920EA04CB00FA179D /* Utilities.h */,
+				02FE24AA20EA04CB00FA179D /* Utilities.m */,
+			);
+			name = Utilities;
+			sourceTree = "<group>";
+		};
+		02FE24B020EA056F00FA179D /* BiclusterViewController */ = {
+			isa = PBXGroup;
+			children = (
+				02FE24AD20EA056C00FA179D /* BiclusterViewController.h */,
+				02FE24AE20EA056C00FA179D /* BiclusterViewController.m */,
+			);
+			name = BiclusterViewController;
+			sourceTree = "<group>";
+		};
+		02FE24B420EA0C3200FA179D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				02FE24B120EA0C1700FA179D /* NodeView.h */,
+				02FE24B220EA0C1700FA179D /* NodeView.m */,
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -141,9 +217,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0206E4BE20EA02FC008C110D /* ViewController.m in Sources */,
 				0206E4C920EA02FE008C110D /* main.m in Sources */,
 				0206E4BB20EA02FC008C110D /* AppDelegate.m in Sources */,
+				0206E4D120EA0358008C110D /* Node.m in Sources */,
+				02FE24B320EA0C1700FA179D /* NodeView.m in Sources */,
+				0206E4D820EA03B1008C110D /* MainViewController.m in Sources */,
+				02FE24AF20EA056C00FA179D /* BiclusterViewController.m in Sources */,
+				02FE24AB20EA04CB00FA179D /* Utilities.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -220,7 +300,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -272,7 +352,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
