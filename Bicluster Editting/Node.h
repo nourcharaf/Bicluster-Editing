@@ -11,6 +11,6 @@
 @interface Node : NSObject
 
 @property NSString *nodeId;
-@property NSMutableArray *nodeNeighbors;
+@property NSMutableArray *nodeEdges;
 
 @end

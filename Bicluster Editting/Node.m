@@ -12,13 +12,13 @@
 
 -(void)encodeWithCoder:(NSCoder *)encoder{
     [encoder encodeObject:_nodeId forKey:@"nodeId"];
-    [encoder encodeObject:_nodeNeighbors forKey:@"nodeNeighbors"];
+    [encoder encodeObject:_nodeEdges forKey:@"nodeEdges"];
 }
 
 -(id)initWithCoder:(NSCoder *)decoder{
     if ((self = [super init])){
         _nodeId = [decoder decodeObjectForKey:@"nodeId"];
-        _nodeNeighbors = [decoder decodeObjectForKey:@"nodeNeighbors"];
+        _nodeEdges = [decoder decodeObjectForKey:@"nodeEdges"];
     }
     
     return self;
@@ -27,7 +27,7 @@
 - (id)copyWithZone:(NSZone *)zone{
     Node *nodeCopy = [[Node alloc]init];
     nodeCopy.nodeId = _nodeId;
-    nodeCopy.nodeNeighbors = _nodeNeighbors;
+    nodeCopy.nodeEdges = _nodeEdges;
     
     return nodeCopy;
 }

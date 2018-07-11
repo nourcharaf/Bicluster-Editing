@@ -10,6 +10,7 @@
 #import "Utilities.h"
 #import "Node.h"
 #import "NodeView.h"
+#import "Edge.h"
 
 @interface BiclusterViewController ()
 
@@ -19,6 +20,7 @@
     UIView *contentView;
     NSMutableArray *leftNodes;
     NSMutableArray *rightNodes;
+    NSMutableArray *edges;
     NSMutableArray *leftNodeViews;
     NSMutableArray *rightNodeViews;
 }
@@ -29,38 +31,57 @@
     
     self.title = @"Bicluster";
     
+    UIBarButtonItem *startBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"Start" style:UIBarButtonItemStyleDone target:self action:@selector(startButton:)];
+    [self.navigationItem setRightBarButtonItem:startBarButtonItem];
+    
     // Constants
     int n = [_numberOfLeftNodes intValue];
     int m = [_numberOfRightNodes intValue];
     
-    // Initialize Left Nodes
+    // Initialize left nodes
     leftNodes = [[NSMutableArray alloc]init];
     for (int i = 0;i<n;i++){
-        Node *node = [[Node alloc]init];
-        node.nodeId = [NSString stringWithFormat:@"%d",i];
-        node.nodeNeighbors = [[NSMutableArray alloc]init];
-        [leftNodes addObject:node];
+        Node *leftNode = [[Node alloc]init];
+        leftNode.nodeId = [NSString stringWithFormat:@"%d",i];
+        leftNode.nodeEdges = [[NSMutableArray alloc]init];
+        [leftNodes addObject:leftNode];
     }
     
-    // Initialize Right Nodes
+    // Initialize right nodes
     rightNodes = [[NSMutableArray alloc]init];
-    for (int i = 0;i<m;i++){
-        Node *node = [[Node alloc]init];
-        node.nodeId = [NSString stringWithFormat:@"%d",i];
-        node.nodeNeighbors = [[NSMutableArray alloc]init];
-        [rightNodes addObject:node];
+    for (int j = 0;j<m;j++){
+        Node *rightNode = [[Node alloc]init];
+        rightNode.nodeId = [NSString stringWithFormat:@"%d",j];
+        rightNode.nodeEdges = [[NSMutableArray alloc]init];
+        [rightNodes addObject:rightNode];
     }
     
-    // Generate Neighbors Randomly
-    for (int i = 0;i<leftNodes.count;i++){
-        Node *leftNode = leftNodes[i];
-        for (int j = 0;j<rightNodes.count;j++){
-            Node *rightNode = rightNodes[j];
-            if ([utilities randomNumber] <= [_probability floatValue]){
-                [leftNode.nodeNeighbors addObject:rightNode];
-                [rightNode.nodeNeighbors addObject:leftNode];
-            }
+    // Initialize edges
+    edges = [[NSMutableArray alloc]init];
+    for (int i = 0;i<n;i++){
+        for (int j = 0;j<m;j++){
+            Edge *edge = [[Edge alloc]init];
+            edge.leftNode = leftNodes[i];
+            edge.rightNode = rightNodes[j];
+            [edges addObject:edge];
         }
+    }
+    
+    // Randomly Generate Edges, add edges only if they exist
+    for (Edge *edge in edges){
+        if ([utilities randomNumber] <= [_probability floatValue]){
+            edge.exists = YES;
+            [edge.leftNode.nodeEdges addObject:edge];
+            [edge.rightNode.nodeEdges addObject:edge];
+        }
+        else{
+            edge.exists = NO;
+        }
+    }
+    
+    // Calculate cValue of edges (In this case using Z factor)
+    for (Edge *edge in edges){
+        edge.cValue = (edge.leftNode.nodeEdges.count - 1)*(edge.rightNode.nodeEdges.count - 1);
     }
     
     [self setupView];
@@ -69,6 +90,11 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - Targets
+-(void)startButton:(UIBarButtonItem *)sender{
+    
 }
 
 #pragma mark - Helper Functions
@@ -153,37 +179,25 @@
     
     // Connect LeftNodeViews to RightNodeViews if they are neighbors
     [contentView layoutIfNeeded];
-    for (int i = 0;i<leftNodeViews.count;i++){
-        NodeView *leftNodeView = leftNodeViews[i];
-        
-        for (int j = 0;j<rightNodeViews.count;j++){
-            NodeView *rightNodeView = rightNodeViews[j];
-            
-            if ([self areNeighborNodes:leftNodeView.node rightNode:rightNodeView.node]){
-                [self connectNodeViews:leftNodeView rightNodeView:rightNodeView];
-            }
+    for (Edge *edge in edges){
+        NodeView *leftNodeView = leftNodeViews[[edge.leftNode.nodeId intValue]];
+        NodeView *rightNodeView = rightNodeViews[[edge.rightNode.nodeId intValue]];
+        if (edge.exists){
+            [self connectNodeViews:leftNodeView rightNodeView:rightNodeView color:[UIColor blackColor]];
+        }
+        else{
+            [self connectNodeViews:leftNodeView rightNodeView:rightNodeView color:[UIColor clearColor]];
         }
     }
 }
--(BOOL)areNeighborNodes:(Node *)leftNode rightNode:(Node *)rightNode{
-    
-    for (int i = 0;i<leftNode.nodeNeighbors.count;i++){
-        Node *neighborNode = leftNode.nodeNeighbors[i];
-        if ([neighborNode.nodeId isEqualToString:rightNode.nodeId]){
-            return YES;
-        }
-    }
-    
-    return NO;
-}
--(void)connectNodeViews:(NodeView *)leftNodeView rightNodeView:(NodeView *)rightNodeView{
+-(void)connectNodeViews:(NodeView *)leftNodeView rightNodeView:(NodeView *)rightNodeView color:(UIColor *)color{
     UIBezierPath *path = [UIBezierPath bezierPath];
     [path moveToPoint:CGPointMake(leftNodeView.frame.origin.x + leftNodeView.frame.size.width, leftNodeView.frame.origin.y + leftNodeView.frame.size.height/2)];
     [path addLineToPoint:CGPointMake(rightNodeView.frame.origin.x, rightNodeView.frame.origin.y + rightNodeView.frame.size.height/2)];
     
     CAShapeLayer *shapeLayer = [CAShapeLayer layer];
     shapeLayer.path = [path CGPath];
-    shapeLayer.strokeColor = [[UIColor blackColor] CGColor];
+    shapeLayer.strokeColor = [color CGColor];
     shapeLayer.lineWidth = 1.0;
     shapeLayer.fillColor = [[UIColor clearColor] CGColor];
     

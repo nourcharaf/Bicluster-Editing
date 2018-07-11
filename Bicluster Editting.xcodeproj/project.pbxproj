@@ -14,6 +14,7 @@
 		0206E4C920EA02FE008C110D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0206E4C820EA02FE008C110D /* main.m */; };
 		0206E4D120EA0358008C110D /* Node.m in Sources */ = {isa = PBXBuildFile; fileRef = 0206E4D020EA0358008C110D /* Node.m */; };
 		0206E4D820EA03B1008C110D /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0206E4D720EA03B1008C110D /* MainViewController.m */; };
+		022BC01020F566AF0025D418 /* Edge.m in Sources */ = {isa = PBXBuildFile; fileRef = 022BC00F20F566AF0025D418 /* Edge.m */; };
 		02FE24AB20EA04CB00FA179D /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 02FE24AA20EA04CB00FA179D /* Utilities.m */; };
 		02FE24AF20EA056C00FA179D /* BiclusterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02FE24AE20EA056C00FA179D /* BiclusterViewController.m */; };
 		02FE24B320EA0C1700FA179D /* NodeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 02FE24B220EA0C1700FA179D /* NodeView.m */; };
@@ -32,6 +33,8 @@
 		0206E4D020EA0358008C110D /* Node.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Node.m; sourceTree = "<group>"; };
 		0206E4D620EA03B1008C110D /* MainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		0206E4D720EA03B1008C110D /* MainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
+		022BC00E20F566AF0025D418 /* Edge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Edge.h; sourceTree = "<group>"; };
+		022BC00F20F566AF0025D418 /* Edge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Edge.m; sourceTree = "<group>"; };
 		02FE24A920EA04CB00FA179D /* Utilities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
 		02FE24AA20EA04CB00FA179D /* Utilities.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Utilities.m; sourceTree = "<group>"; };
 		02FE24AD20EA056C00FA179D /* BiclusterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BiclusterViewController.h; sourceTree = "<group>"; };
@@ -84,10 +87,20 @@
 			path = "Bicluster Editting";
 			sourceTree = "<group>";
 		};
+		022BC01120F566B20025D418 /* Edge */ = {
+			isa = PBXGroup;
+			children = (
+				022BC00E20F566AF0025D418 /* Edge.h */,
+				022BC00F20F566AF0025D418 /* Edge.m */,
+			);
+			name = Edge;
+			sourceTree = "<group>";
+		};
 		02FE24A520EA044C00FA179D /* NSObjects */ = {
 			isa = PBXGroup;
 			children = (
 				02FE24A620EA045800FA179D /* Node */,
+				022BC01120F566B20025D418 /* Edge */,
 			);
 			name = NSObjects;
 			sourceTree = "<group>";
@@ -223,6 +236,7 @@
 				02FE24B320EA0C1700FA179D /* NodeView.m in Sources */,
 				0206E4D820EA03B1008C110D /* MainViewController.m in Sources */,
 				02FE24AF20EA056C00FA179D /* BiclusterViewController.m in Sources */,
+				022BC01020F566AF0025D418 /* Edge.m in Sources */,
 				02FE24AB20EA04CB00FA179D /* Utilities.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
