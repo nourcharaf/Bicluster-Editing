@@ -92,7 +92,7 @@
 #pragma mark - Targets
 -(void)startButton:(UIBarButtonItem *)sender{
     
-    // Do itteration k times
+    // Do iteration k times
     for (int i = 0;i<[_kLimit intValue];i++){
         
         // Set Edge CValues
@@ -101,7 +101,7 @@
         // Sort Edges based on cValue (Ascending)
         [self sortEdges];
         
-        // Pick edge with least cValue (must exist)
+        // Pick edge that exists with least cValue
         Edge *edgeToDelete;
         for (Edge *edge in edges){
             if (edge.exists){
@@ -110,16 +110,33 @@
             }
         }
         
-        // Delete Edge, and remove edge from left and right nodes
+        // If an edge was found, delete it, and make sure to remove edge from its left and right nodes
         if (edgeToDelete){
             edgeToDelete.exists = NO;
             [edgeToDelete.leftNode.nodeEdges removeObject:edgeToDelete];
             [edgeToDelete.rightNode.nodeEdges removeObject:edgeToDelete];
         }
         
-        // Redraw Edges (optional)
-        [self drawEdges];
+        // Pick edge that does not exist with highest cValue
+        Edge *edgeToAdd;
+        NSArray *reverseArray = [[edges reverseObjectEnumerator] allObjects];
+        for (Edge *edge in reverseArray){
+            if (!edge.exists){
+                edgeToAdd = edge;
+                break;
+            }
+        }
+        
+        // If an edge was found, add it, and make sure to add the edge to its left and right nodes
+        if (edgeToAdd){
+            edgeToAdd.exists = YES;
+            [edgeToAdd.leftNode.nodeEdges addObject:edgeToAdd];
+            [edgeToAdd.rightNode.nodeEdges addObject:edgeToAdd];
+        }
     }
+    
+    // We can redraw the edges at the end (optional)
+    [self drawEdges];
 }
 
 #pragma mark - Helper Functions
@@ -206,16 +223,42 @@
     [contentView layoutIfNeeded];
 }
 -(void)setEdgeCValues{
-    // Calculate cValue of edges (Here based on Z factor)
-    // High cValue means edge should exist, low cValue means edge should be deleted
+    // Calculate cValue of edges
     for (Edge *edge in edges){
-        if (edge.exists){
-            edge.cValue = (edge.leftNode.nodeEdges.count - 1)*(edge.rightNode.nodeEdges.count - 1);
-        }
-        else{
-            edge.cValue = 0;
+        edge.cValue = [self calculateCValue:edge];
+    }
+}
+-(float)calculateCValue:(Edge *)edge{
+    // Get neighbors of left node
+    NSMutableArray *neighborsOfLeftNode = [[NSMutableArray alloc]init];
+    for (Edge *neighborEdge in edge.leftNode.nodeEdges){
+        [neighborsOfLeftNode addObject:neighborEdge.rightNode];
+    }
+    // Get neighbors of right node
+    NSMutableArray *neighborsOfRighNode = [[NSMutableArray alloc]init];
+    for (Edge *neighborEdge in edge.rightNode.nodeEdges){
+        [neighborsOfRighNode addObject:neighborEdge.leftNode];
+    }
+    // Get neighbors of neighbors of right node
+    NSMutableArray *neighborsOfNeighborsOfRightNode= [[NSMutableArray alloc]init];
+    for (Node *node in neighborsOfRighNode){
+        for (Edge *neighborEdge in node.nodeEdges){
+            [neighborsOfNeighborsOfRightNode addObject:neighborEdge.rightNode];
         }
     }
+    // Intersection between neighbors of left node and neighbors of neighbors of right node
+    NSMutableSet *set1 = [NSMutableSet setWithArray:neighborsOfLeftNode];
+    NSSet *set2 = [NSSet setWithArray: neighborsOfNeighborsOfRightNode];
+    [set1 intersectSet: set2];
+    NSArray *resultArray = [set1 allObjects];
+    
+    // Calculate CValue
+    float cValue = 0;
+    if (neighborsOfNeighborsOfRightNode.count > 0){
+        cValue = (float)resultArray.count/(float)neighborsOfNeighborsOfRightNode.count;
+    }
+    
+    return cValue;
 }
 -(void)sortEdges{
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"cValue" ascending:YES];
