@@ -18,6 +18,7 @@
     UITextField *leftNodesTextField;
     UITextField *rightNodesTextField;
     UITextField *probabilityTextField;
+    UITextField *kLimitTextField;
 }
 
 - (void)viewDidLoad {
@@ -40,6 +41,7 @@
     biclusterViewController.numberOfLeftNodes = leftNodesTextField.text;
     biclusterViewController.numberOfRightNodes = rightNodesTextField.text;
     biclusterViewController.probability = probabilityTextField.text;
+    biclusterViewController.kLimit = kLimitTextField.text;
     [self.navigationController pushViewController:biclusterViewController animated:YES];
 }
 -(void)doneBarButton:(UIBarButtonItem *)sender{
@@ -101,6 +103,20 @@
     [probabilityTextField setPlaceholder:@"Probability"];
     [probabilityTextField setInputAccessoryView:toolBar];
     [probabilityTextField setKeyboardType:UIKeyboardTypeNumbersAndPunctuation];
+    
+    // KLimit TextField
+    kLimitTextField = [[UITextField alloc]init];
+    [kLimitTextField setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [self.view addSubview:kLimitTextField];
+    
+    NSLayoutConstraint *kLimitTextFieldTopConstraint = [NSLayoutConstraint constraintWithItem:kLimitTextField attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:probabilityTextField attribute:NSLayoutAttributeBottom multiplier:1 constant:8];
+    NSLayoutConstraint *kLimitTextFieldFieldLeadingConstraint = [NSLayoutConstraint constraintWithItem:kLimitTextField attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeLeading multiplier:1 constant:8];
+    NSLayoutConstraint *kLimitTextFieldFieldTrailing = [NSLayoutConstraint constraintWithItem:kLimitTextField attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeTrailing multiplier:1 constant:-8];
+    [self.view addConstraints:@[kLimitTextFieldTopConstraint,kLimitTextFieldFieldLeadingConstraint,kLimitTextFieldFieldTrailing]];
+    
+    [kLimitTextField setPlaceholder:@"k limit"];
+    [kLimitTextField setInputAccessoryView:toolBar];
+    [kLimitTextField setKeyboardType:UIKeyboardTypeNumberPad];
     
     // Generate Button
     UIButton *generateButton = [[UIButton alloc]init];

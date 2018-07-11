@@ -21,6 +21,7 @@
     NSMutableArray *leftNodes;
     NSMutableArray *rightNodes;
     NSMutableArray *edges;
+    
     NSMutableArray *leftNodeViews;
     NSMutableArray *rightNodeViews;
 }
@@ -79,12 +80,8 @@
         }
     }
     
-    // Calculate cValue of edges (In this case using Z factor)
-    for (Edge *edge in edges){
-        edge.cValue = (edge.leftNode.nodeEdges.count - 1)*(edge.rightNode.nodeEdges.count - 1);
-    }
-    
     [self setupView];
+    [self drawEdges];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -95,6 +92,32 @@
 #pragma mark - Targets
 -(void)startButton:(UIBarButtonItem *)sender{
     
+    // Do itteration k times
+    for (int i = 0;i<[_kLimit intValue];i++){
+        
+        // Set Edge CValues
+        [self setEdgeCValues];
+        
+        // Sort Edges based on cValue (Ascending)
+        [self sortEdges];
+        
+        // Pick edge with least cValue (must exist)
+        Edge *edgeToDelete;
+        for (Edge *edge in edges){
+            if (edge.exists){
+                edgeToDelete = edge;
+                break;
+            }
+        }
+        
+        // Delete Edge
+        if (edgeToDelete){
+            edgeToDelete.exists = NO;
+        }
+        
+        // Redraw Edges (optional)
+        [self drawEdges];
+    }
 }
 
 #pragma mark - Helper Functions
@@ -141,7 +164,7 @@
         NSLayoutConstraint *nodeViewHeightConstraint = [NSLayoutConstraint constraintWithItem:nodeView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nodeView attribute:NSLayoutAttributeWidth multiplier:1 constant:0];
         [contentView addConstraints:@[nodeViewTopConstraint,nodeViewLeadingConstraint,nodeViewWidthConstraint,nodeViewHeightConstraint]];
         
-        nodeView.node = node;
+        node.nodeView = nodeView;
         [nodeView setupView];
         [nodeView.nodeLabel setText:[NSString stringWithFormat:@"%@",node.nodeId]];
         [leftNodeViews addObject:nodeView];
@@ -165,7 +188,7 @@
         NSLayoutConstraint *nodeViewHeightConstraint = [NSLayoutConstraint constraintWithItem:nodeView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nodeView attribute:NSLayoutAttributeWidth multiplier:1 constant:0];
         [contentView addConstraints:@[nodeViewTopConstraint,nodeViewTrailingConstraint,nodeViewWidthConstraint,nodeViewHeightConstraint]];
         
-        nodeView.node = node;
+        node.nodeView = nodeView;
         [nodeView setupView];
         [nodeView.nodeLabel setText:[NSString stringWithFormat:@"%@'",node.nodeId]];
         [rightNodeViews addObject:nodeView];
@@ -177,11 +200,29 @@
     NSLayoutConstraint *lastViewBottomConstraint = [NSLayoutConstraint constraintWithItem:leftNodes.count > rightNodes.count ? lastLeftView : lastRightView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:contentView attribute:NSLayoutAttributeBottom multiplier:1 constant:-8];
     [contentView addConstraints:@[lastViewBottomConstraint]];
     
-    // Connect LeftNodeViews to RightNodeViews if they are neighbors
+    // Layout
     [contentView layoutIfNeeded];
+}
+-(void)setEdgeCValues{
+    // Calculate cValue of edges (Here based on Z factor)
+    // High cValue means edge should exist, low cValue means edge should be deleted
     for (Edge *edge in edges){
-        NodeView *leftNodeView = leftNodeViews[[edge.leftNode.nodeId intValue]];
-        NodeView *rightNodeView = rightNodeViews[[edge.rightNode.nodeId intValue]];
+        if (edge.exists){
+            edge.cValue = (edge.leftNode.nodeEdges.count - 1)*(edge.rightNode.nodeEdges.count - 1);
+        }
+        else{
+            edge.cValue = 0;
+        }
+    }
+}
+-(void)drawEdges{
+    // Remove All Drawn Edges
+    [self removeAllDrawnEdges];
+    
+    // Connect LeftNodeViews to RightNodeViews if they are neighbors
+    for (Edge *edge in edges){
+        NodeView *leftNodeView = edge.leftNode.nodeView;
+        NodeView *rightNodeView = edge.rightNode.nodeView;
         if (edge.exists){
             [self connectNodeViews:leftNodeView rightNodeView:rightNodeView color:[UIColor blackColor]];
         }
@@ -202,6 +243,20 @@
     shapeLayer.fillColor = [[UIColor clearColor] CGColor];
     
     [contentView.layer addSublayer:shapeLayer];
+}
+-(void)removeAllDrawnEdges{
+    for (CALayer *layer in contentView.layer.sublayers){
+        if ([layer isKindOfClass:[CAShapeLayer class]]){
+            [[NSOperationQueue mainQueue]addOperationWithBlock:^{
+                [layer removeFromSuperlayer];
+            }];
+        }
+    }
+}
+-(void)sortEdges{
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"cValue" ascending:YES];
+    NSArray *sortedArray = [edges sortedArrayUsingDescriptors:@[sortDescriptor]];
+    edges = [NSMutableArray arrayWithArray:sortedArray];
 }
 
 /*

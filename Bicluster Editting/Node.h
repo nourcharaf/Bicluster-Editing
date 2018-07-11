@@ -7,10 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "NodeView.h"
 
 @interface Node : NSObject
 
 @property NSString *nodeId;
 @property NSMutableArray *nodeEdges;
+
+@property NodeView *nodeView;
 
 @end

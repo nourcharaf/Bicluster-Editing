@@ -7,15 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Node.h"
 
 @interface NodeView : UIView
 
 @property BOOL didSetupView;
 @property UIView *circleView;
 @property UILabel *nodeLabel;
-
-@property Node *node;
 
 -(void)setupView;
 
