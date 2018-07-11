@@ -68,7 +68,7 @@
         }
     }
     
-    // Randomly Generate Edges, add edges only if they exist
+    // Randomly Generate Edges, add edges to nodes only if they exist
     for (Edge *edge in edges){
         if ([utilities randomNumber] <= [_probability floatValue]){
             edge.exists = YES;
@@ -110,9 +110,11 @@
             }
         }
         
-        // Delete Edge
+        // Delete Edge, and remove edge from left and right nodes
         if (edgeToDelete){
             edgeToDelete.exists = NO;
+            [edgeToDelete.leftNode.nodeEdges removeObject:edgeToDelete];
+            [edgeToDelete.rightNode.nodeEdges removeObject:edgeToDelete];
         }
         
         // Redraw Edges (optional)
@@ -215,6 +217,11 @@
         }
     }
 }
+-(void)sortEdges{
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"cValue" ascending:YES];
+    NSArray *sortedArray = [edges sortedArrayUsingDescriptors:@[sortDescriptor]];
+    edges = [NSMutableArray arrayWithArray:sortedArray];
+}
 -(void)drawEdges{
     // Remove All Drawn Edges
     [self removeAllDrawnEdges];
@@ -252,11 +259,6 @@
             }];
         }
     }
-}
--(void)sortEdges{
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"cValue" ascending:YES];
-    NSArray *sortedArray = [edges sortedArrayUsingDescriptors:@[sortDescriptor]];
-    edges = [NSMutableArray arrayWithArray:sortedArray];
 }
 
 /*
